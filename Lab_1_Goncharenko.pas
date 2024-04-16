@@ -1,6 +1,10 @@
 program Lab_1_Goncharenko;
-     var x1,x2,x3,y1,y2,y3,x4,y4: int64;
-        x_1,x_2,x_3,y_1,y_2,y_3,x_4,y_4, a, b, c, m,k1,k2,k3: extended;
+     var x1,x2,x3,y1,y2,y3,x4,y4: integer;
+        x_1,x_2,x_3,y_1,y_2,y_3,x_4,y_4, a, b, c, p, s, m,k1,k2,k3, func_k,func_b: real;
+function func_y(x:real):real;
+begin
+func_y:=func_k*x+func_b
+end;
 begin
   //ввод целочисленных координат
   writeln ('First three points for the triangle, then free one.');
@@ -30,11 +34,50 @@ begin
   k2:=(sqr(b)+sqr(a)-sqr(c))/(2*b*a);
   k3:=(sqr(a)+sqr(c)-sqr(b))/(2*a*c);
 
+  m:=0;
+  //построение функции одной стороны
+  if x_2>x_1 then
+     begin
+     func_k:= (y_2-y_1)/(x_2-x_1);
+     func_b:=y_1-x_1*(func_k);
+     end
+else
+      begin
+      func_k:= (y_1-y_2)/(x_1-x_2);
+      func_b:=y_1-x_1*(func_k);
+      end;
+  //лежат ли точки по одну сторону от функции
+  if ((func_y(x_3)>y_3) and  (func_y(x_4)>y_4)) or ((func_y(x_3)<y_3) and  (func_y(x_4)<y_4))
+  then
+      m:=m+1;
 
-  //точка лежит по одну сторону от всех сторон треугольника (из знака произведения векторов)
-  if ((x_1-x_4)*(y_2-y_1)-(x_2-x_1)*(y_1-y_4)>=0)  and ((x_2-x_4)*(y_3-y_2)-(x_3-x_2)*(y_2-y_4)>=0)
-  and ((x_3-x_4)*(y_1-y_3)-(x_1-x_3)*(y_3-y_4)>=0) then
-  m:=1;
+  if x_3>x_1 then
+  begin
+       func_k:= (y_3-y_1)/(x_3-x_1);
+       func_b:=y_1-x_1*(func_k);
+  end
+  else
+  begin
+       func_k:= (y_1-y_3)/(x_1-x_3);
+       func_b:=y_1-x_1*(func_k);
+  end;
+
+  if ((func_y(x_2)>y_2) and  (func_y(x_4)>y_4)) or ((func_y(x_2)<y_2) and  (func_y(x_4)<y_4))
+  then
+      m:=m+1;
+
+   if x_3>x_2 then
+  begin
+       func_k:= (y_3-y_2)/(x_3-x_2);
+       func_b:=y_2-x_2*(func_k);
+  end
+  else
+      func_k:= (y_2-y_3)/(x_2-x_3);
+      func_b:=y_2-x_2*(func_k);
+  if ((func_y(x_1)>y_1) and  (func_y(x_4)>y_4)) or ((func_y(x_1)<y_1) and  (func_y(x_4)<y_4))
+  then
+      m:=m+1;
+
       //вывод таблицы
   writeln('');
   writeln('');
@@ -44,16 +87,15 @@ begin
   writeln('':3,'Fourth point: ');
   writeln(x4:3,y4:4);
 
-  if (m=1) then
+  if (m=3) then
   writeln('Point four belongs inside the triangle.')
   else
   writeln('Point four doesnt belong inside the triangle.');
-  if (k1<0) or(k2<0) or(k3<0) then
+  if (k1<=0) or(k2<=0) or(k3<=0) then
   writeln ('Not Acute - angled triangle.')
   else
   writeln ('Acute - angled triangle.');
   readln();
 
 end.
-
 
