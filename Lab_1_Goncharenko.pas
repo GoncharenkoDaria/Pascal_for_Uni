@@ -1,6 +1,6 @@
 program Lab_1_Goncharenko;
      var x1,x2,x3,y1,y2,y3,x4,y4: int64;
-        x_1,x_2,x_3,y_1,y_2,y_3,x_4,y_4, a, b, c, m,k1,k2,k3,p,s,s1,s2,s3,E: extended;
+        x_1,x_2,x_3,y_1,y_2,y_3,x_4,y_4, a, b, c, m,k1,k2,k3: extended;
 begin
   //ввод целочисленных координат
   writeln ('First three points for the triangle, then free one.');
@@ -30,36 +30,11 @@ begin
   k2:=(sqr(b)+sqr(a)-sqr(c))/(2*b*a);
   k3:=(sqr(a)+sqr(c)-sqr(b))/(2*a*c);
 
-//cтороны и площадь большого треугольника
-   p:=(a+b+c)/2;
-  s:=sqrt(p*(p-a)*(p-b)*(p-c));
-  //стороны и площадь маленьких треугольников
-  a:=sqrt(sqr(x_2-x_4)+sqr(y_2-y_4));
-  b:=sqrt(sqr(x_3-x_2)+sqr(y_3-y_2));
-  c:=sqrt(sqr(x_4-x_3)+sqr(y_4-y_3));
-  p:=(a+b+c)/2;
-  s1:=sqrt(p*(p-a)*(p-b)*(p-c));
 
-  a:=sqrt(sqr(x_4-x_1)+sqr(y_4-y_1));
-  b:=sqrt(sqr(x_3-x_4)+sqr(y_3-y_4));
-  c:=sqrt(sqr(x_1-x_3)+sqr(y_1-y_3));
-  p:=(a+b+c)/2;
-  s2:=sqrt(p*(p-a)*(p-b)*(p-c));
-
-  a:=sqrt(sqr(x_2-x_1)+sqr(y_2-y_1));
-  b:=sqrt(sqr(x_4-x_2)+sqr(y_4-y_2));
-  c:=sqrt(sqr(x_1-x_4)+sqr(y_1-y_4));
-  p:=(a+b+c)/2;
-  s3:=sqrt(p*(p-a)*(p-b)*(p-c));
-
-   E:=0.000001;
-
-
-  {//точка лежит по одну сторону от всех сторон треугольника (из знака произведения векторов)
+  //точка лежит по одну сторону от всех сторон треугольника (из знака произведения векторов)
   if ((x_1-x_4)*(y_2-y_1)-(x_2-x_1)*(y_1-y_4)>=0)  and ((x_2-x_4)*(y_3-y_2)-(x_3-x_2)*(y_2-y_4)>=0)
   and ((x_3-x_4)*(y_1-y_3)-(x_1-x_3)*(y_3-y_4)>=0) then
-  m:=1;                }
-
+  m:=1;
       //вывод таблицы
   writeln('');
   writeln('');
@@ -69,7 +44,7 @@ begin
   writeln('':3,'Fourth point: ');
   writeln(x4:3,y4:4);
 
-  if (abs(s1+s2+s3-s)<=E) then
+  if (m=1) then
   writeln('Point four belongs inside the triangle.')
   else
   writeln('Point four doesnt belong inside the triangle.');
@@ -80,4 +55,5 @@ begin
   readln();
 
 end.
+
 
